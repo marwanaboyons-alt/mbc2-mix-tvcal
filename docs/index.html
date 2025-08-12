@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>📺 جدول أفلام MBC2 و Mix</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;background:#f9f9f9;padding:20px;text-align:center;}
+    h1{margin-bottom:18px}
+    table{margin:auto;border-collapse:collapse;width:95%;background:#fff}
+    th,td{border:1px solid #ccc;padding:8px;text-align:center}
+    th{background:#333;color:#fff}
+    .small{font-size:0.9em;color:#666;margin-top:10px}
+  </style>
+</head>
+<body>
+  <h1>📺 جدول أفلام MBC2 و Mix</h1>
+  <div id="schedule"><p>⏳ جارٍ تحميل الجدول...</p></div>
+  <p class="small">التحديث اليومي يتم تلقائيًا عبر GitHub Actions (إذا تم إعداده).</p>
+
+  <script>
+    // جلب الملف schedule.json الموجود في نفس المجلد (docs)
+    fetch('schedule.json')
+      .then(r => {
+        if (!r.ok) throw new Error('لا يوجد ملف schedule.json');
+        return r.json();
+      })
+      .then(data => {
+        if (!Array.isArray(data) || data.length === 0) {
+          document.getElementById('schedule').innerHTML = '<p>لا توجد بيانات حتى الآن.</p>';
+          return;
+        }
+        let html = '<table><tr><th>القناة</th><th>الفيلم / الحلقة</th><th>الوقت</th></tr>';
+        data.forEach(item => {
+          html += `<tr><td>${item.channel||''}</td><td>${item.movie||item.title||''}</td><td>${item.time||''}</td></tr>`;
+        });
+        html += '</table>';
+        document.getElementById('schedule').innerHTML = html;
+      })
+      .catch(err => {
+        document.getElementById('schedule').innerHTML = '<p style="color:#c00">تعذّر تحميل الجدول: '+err.message+'</p>';
+        console.error(err);
+      });
+  </script>
+</body>
+</html>
