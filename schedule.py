@@ -61,7 +61,10 @@ for channel, url in channels.items():
         cal.events.add(e)
 
 # حفظ ملف ICS
-with open("tv_schedule.ics", "w", encoding="utf-8") as f:
-    f.writelines(cal)
+import os
+os.makedirs("docs", exist_ok=True)
+
+with open("docs/tv_schedule.ics", "wb") as f:
+    f.write(cal.to_ical())
 
 print("تم إنشاء ملف tv_schedule.ics بنجاح!")
