@@ -1,15 +1,16 @@
-name: Update Schedule
+name: Update Movie Schedule
 
 on:
   schedule:
-    - cron: '0 6 * * *'  # كل يوم الساعة 06:00 UTC (يمكن تغييره)
-  workflow_dispatch:
+    - cron: '0 0 * * *' # يحدث يوميًا عند منتصف الليل UTC
+  workflow_dispatch: # للتشغيل اليدوي
 
 jobs:
-  update:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Set up Python
@@ -23,10 +24,10 @@ jobs:
       - name: Run script
         run: python update_schedule.py
 
-      - name: Commit changes
+      - name: Commit and push changes
         run: |
-          git config --global user.name 'github-actions'
-          git config --global user.email 'github-actions@github.com'
-          git add index.html
-          git commit -m "Update schedule" || echo "no changes to commit"
-          git push origin HEAD:main || echo "push failed"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Update movie schedule" || echo "No changes to commit"
+          git push
