@@ -1,0 +1,32 @@
+name: Daily TV Schedule
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # يشغل كل يوم الساعة 12 صباحًا بتوقيت UTC (2 صباحًا بتوقيت القاهرة)
+  workflow_dispatch: # يسمح بالتشغيل اليدوي
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run script
+        run: |
+          python schedule.py
+
+      - name: Upload artifact (ICS file)
+        uses: actions/upload-artifact@v4
+        with:
+          name: tv_schedule
+          path: tv_schedule.ics
