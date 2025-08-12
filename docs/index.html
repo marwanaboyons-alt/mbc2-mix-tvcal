@@ -17,21 +17,5 @@
   <div id="schedule">
     <p>هنا هيظهر جدول الأفلام لاحقًا</p>
   </div>
-  <script>
-  fetch('schedule.json')
-    .then(response => response.json())
-    .then(data => {
-      let html = '<table><tr><th>الفيلم</th><th>الوقت</th></tr>';
-      data.forEach(item => {
-        html += `<tr><td>${item.title}</td><td>${item.time}</td></tr>`;
-      });
-      html += '</table>';
-      document.getElementById('schedule').innerHTML = html;
-    })
-    .catch(error => {
-      document.getElementById('schedule').innerHTML = '<p>حدث خطأ في تحميل البيانات</p>';
-      console.error(error);
-    });
-    </script>
 </body>
 </html>
