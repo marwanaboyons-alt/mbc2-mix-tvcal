@@ -1,12 +1,10 @@
 [
   {
-    "channel": "MBC2",
-    "time": "10:00 PM",
-    "movie": "Example Movie"
+    "title": "Spider-Man",
+    "time": "PM 10:00"
   },
   {
-    "channel": "Mix",
-    "time": "11:30 PM",
-    "movie": "Another Example Movie"
+    "title": "Inception",
+    "time": "PM 11:30"
   }
 ]
