@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: pip install requests beautifulsoup4
       - name: Run script
-        run: python your_script.py
+      run: python update_schedule.py
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
