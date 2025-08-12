@@ -1,0 +1,32 @@
+name: Update Schedule
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # كل يوم الساعة 06:00 UTC (يمكن تغييره)
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Run script
+        run: python update_schedule.py
+
+      - name: Commit changes
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add index.html
+          git commit -m "Update schedule" || echo "no changes to commit"
+          git push origin HEAD:main || echo "push failed"
