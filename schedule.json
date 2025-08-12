@@ -1,0 +1,12 @@
+[
+  {
+    "channel": "MBC2",
+    "time": "10:00 PM",
+    "movie": "Example Movie"
+  },
+  {
+    "channel": "Mix",
+    "time": "11:30 PM",
+    "movie": "Another Example Movie"
+  }
+]
